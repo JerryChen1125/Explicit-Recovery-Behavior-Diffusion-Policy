@@ -163,9 +163,7 @@ class ManipulatorRobot:
     ):
         self.config = config
         self.robot_type = self.config.type
-        # import pdb;pdb.set_trace()
         self.calibration_dir = Path('/home/sealab/jr_code/lerobot/'+self.config.calibration_dir)
-        # import pdb;pdb.set_trace()
         self.leader_arms = make_motors_buses_from_configs(self.config.leader_arms)
         self.follower_arms = make_motors_buses_from_configs(self.config.follower_arms)
         self.cameras = make_cameras_from_configs(self.config.cameras)
@@ -388,7 +386,6 @@ class ManipulatorRobot:
         # Send goal position to the follower
         follower_goal_pos = {}
         for name in self.follower_arms:
-            # import pdb;pdb.set_trace()
             before_fwrite_t = time.perf_counter()
             goal_pos = leader_pos[name]
 

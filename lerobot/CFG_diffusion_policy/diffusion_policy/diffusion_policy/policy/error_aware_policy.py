@@ -74,7 +74,6 @@ def reverse_angle(act):
 
     return reverse_action
 def reverse(act):
-    # import pdb;pdb.set_trace()
     x = -act[...,0]
     y = -act[...,1]
     z = -act[...,2]
@@ -113,7 +112,6 @@ def reverse(act):
 def test_reverse(pos):
 
     reverse_pos=np.zeros((8,7))
-    # import pdb;pdb.set_trace()
 
     for j in range(pos.shape[0]):
         pos_matrix=np.eye(4)
@@ -166,7 +164,6 @@ class error_aware_policy(BaseImagePolicy):
     def add_error(self, error):
         # print(error)
         # error = mse.mean(dim=[1,2,3]).detach().cpu().numpy()
-        # import pdb;pdb.set_trace()
         for i in range(error.shape[0]):
             self.errors[i].append([error[i]])
         for i in range(error.shape[0]):
@@ -201,7 +198,6 @@ class error_aware_policy(BaseImagePolicy):
         if not self.buffer_action:
             return None  # No action to draw back to
         action=np.zeros(self.action_shape)
-        # import pdb;pdb.set_trace()
         for i in range(action.shape[0]):
             action[i]=pushT_reverse(self.buffer_action[i][-1].cpu().detach().numpy())
 
@@ -214,7 +210,6 @@ class error_aware_policy(BaseImagePolicy):
                     # print('still_backing')
                     # action[i]=action[i]
                     # self.backing_step[i]=self.backing_step[i]+1
-                    # import pdb;pdb.set_trace()
                     observation_per=dict()
                     for key in observation.keys():
                         observation_per[key]=observation[key][i].unsqueeze(0)
@@ -233,11 +228,9 @@ class error_aware_policy(BaseImagePolicy):
                 if flag:
                     action[i]=action[i]
 
-                    # import pdb;pdb.set_trace()
                     print('backing')
                     print('----------------------------------------------')
                     self.backing_step[i]=self.backing_step[i]+1
-                    # import pdb;pdb.set_trace()
                 else: 
                     print('forward')
                     observation_per=dict()
@@ -267,7 +260,6 @@ class error_aware_policy(BaseImagePolicy):
         error=torch.tensor(loss).unsqueeze(0)
        
         # error = mse.mean()
-        # import pdb;pdb.set_trace()
         error=error.detach().cpu().numpy()
         # print('-----')
         # print(error.shape)

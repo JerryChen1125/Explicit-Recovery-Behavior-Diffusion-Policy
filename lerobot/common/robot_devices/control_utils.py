@@ -165,22 +165,20 @@ def predict_action(observation, policy, device, use_amp, robot, hdf5_path=None, 
             observation[name] = observation[name].to(device)
         # Compute the next action with the policy
         # based on the current observation
-        action = policy.predict_action(observation)
+        action_dict = policy.predict_action(observation)
 
     ### for policy with error detector ###
-    return torch.from_numpy(action)
+    # return torch.from_numpy(action_dict)
 
-        ### for policy yuan ###
-    #     pred_action=action['action_pred']
-    #     action=action['action']
-
-    #     # Remove batch dimension
-    #     action = action.squeeze()
-    #     # Move to cpu, if not already the case
-    #     action = action.to("cpu")
-
-    #     # print("policy:\n", action)
-    # return action, pred_action
+        ### for baseline policy ###
+        pred_action=action_dict['action_pred']
+        action=action_dict['action']
+        # Remove batch dimension
+        action = action.squeeze()
+        # Move to cpu, if not already the case
+        action = action.to("cpu")
+        # print("policy:\n", action)
+    return action, pred_action
 
 
 def init_keyboard_listener():
@@ -241,10 +239,7 @@ def warmup_record(
         teleoperate=enable_teleoperation,
         # eval=True
     )
-    # import pdb;pdb.set_trace()
-    # print(robot.follower_arms.keys())
-    # robot.follower_arms['main'].robot.set_servo_angle(angle=[3.1,-11.1,-48.7,-176.4,-78.7,188.3])
-    # time.sleep(1)
+
 def record_episode(
     robot,
     dataset,
@@ -347,20 +342,18 @@ def control_loop(
             new_obs['state']=observation['observation.state']
             if policy is not None:
                 ### for policy with error detector ###
-                pred_action = predict_action(
-                    new_obs, policy, get_safe_torch_device("cuda:0"), use_amp=False, robot=robot)
-                pred_action = pred_action.squeeze(0)
+                # pred_action = predict_action(
+                #     new_obs, policy, get_safe_torch_device("cuda:0"), use_amp=False, robot=robot)
+                # pred_action = pred_action.squeeze(0)
+
+                ### for baseline policy ###
+                pred_action, action_pred = predict_action(
+                    new_obs, policy, get_safe_torch_device("cuda:0"), use_amp=False, robot=robot, hdf5_path=None, demo_idx=20, current_step=step_counter)
+                action_list.append(action_pred)
+
                 for act in pred_action:
                     action = robot.send_action(act)
                     action = {"action": action}
-
-                ### for policy yuan ###
-                # pred_action, action_pred = predict_action(
-                #     new_obs, policy, get_safe_torch_device("cuda:0"), use_amp=False, robot=robot, hdf5_path=None, demo_idx=20, current_step=step_counter)
-                # action_list.append(action_pred)
-                # for act in pred_action:
-                #     action = robot.send_action(act)
-                #     action = {"action": action}
         if dataset is not None and not eval:
             frame = {**observation, **action, "task": single_task}
             dataset.add_frame(frame)
@@ -527,10 +520,10 @@ def control_loop_dp3(
                 # if hasattr(current_action, 'cpu'):
                 #     current_action = current_action.cpu()
                 # action_list.append(current_action)
-                # actual_action = robot.send_action(current_action)
-                # action = {"action": actual_action}
+                # action = robot.send_action(current_action)
+                # action = {"action": action}
 
-                ### for policy yuan ###
+                ### for baseline policy ###
                 pred_action, action_pred = predict_action(
                     new_obs, policy, get_safe_torch_device("cuda:0"), use_amp=False, robot=robot, hdf5_path=None, demo_idx=20, current_step=step_counter)
                 action_list.append(action_pred)

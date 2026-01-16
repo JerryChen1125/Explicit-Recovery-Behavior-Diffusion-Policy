@@ -82,7 +82,7 @@ python lerobot/scripts/control_robot.py replay \
 python lerobot/scripts/control_robot.py record \
     --robot.type=so100 \
     --control.type=record \
-    --control.fps 30 \
+    --control.fps=30 \
     --control.repo_id=$USER/koch_pick_place_lego \
     --control.num_episodes=50 \
     --control.warmup_time_s=2 \
@@ -188,8 +188,7 @@ def load_policy():
     payload = torch.load(open(ckpt_path, 'rb'), pickle_module=dill)
     cfg = payload['cfg']
     cfg._target_='lerobot.CFG_diffusion_policy.diffusion_policy.diffusion_policy.workspace.train_diffusion_unet_image_workspace.TrainDiffusionUnetImageWorkspace'
-    cfg.training.seed=42
-    
+    cfg.training.seed = 42
     cls = hydra.utils.get_class(cfg._target_)
     workspace = cls(cfg)
     workspace: BaseWorkspace
@@ -202,37 +201,34 @@ def load_policy():
         policy = workspace.model
         if cfg.training.use_ema:
             policy = workspace.ema_model
-
         device = torch.device('cuda')
         policy.eval().to(device)
         # set inference params
         policy.num_inference_steps = 16 # DDIM inference citerations
         policy.n_action_steps = policy.horizon - policy.n_obs_steps + 1
 
-    vae_ckpt="/media/sealab/data/lerobot_policies/task1_errordetector/checkpoints/latest.ckpt"
-    vae_payload = torch.load(open(vae_ckpt, 'rb'), pickle_module=dill)
-    vae_cfg = vae_payload['cfg']
-    vae_cfg._target_='lerobot.CFG_diffusion_policy.diffusion_policy.diffusion_policy.workspace.train_vae_workspace.TrainDiffusionUnetImageWorkspace'
-    vae_cls = hydra.utils.get_class(vae_cfg._target_)
-    vae_workspace = vae_cls(vae_cfg)
-    vae_workspace: BaseWorkspace
-    vae_workspace.load_payload(vae_payload, exclude_keys=None, include_keys=None)
+    ### for baseline policy ###
+    return policy
 
-    vae_policy = None
+    ### for policy with error detector ###
+    # vae_ckpt="/media/sealab/data/lerobot_policies/task1_errordetector/checkpoints/latest.ckpt"
+    # vae_payload = torch.load(open(vae_ckpt, 'rb'), pickle_module=dill)
+    # vae_cfg = vae_payload['cfg']
+    # vae_cfg._target_='lerobot.CFG_diffusion_policy.diffusion_policy.diffusion_policy.workspace.train_vae_workspace.TrainDiffusionUnetImageWorkspace'
+    # vae_cls = hydra.utils.get_class(vae_cfg._target_)
+    # vae_workspace = vae_cls(vae_cfg)
+    # vae_workspace: BaseWorkspace
+    # vae_workspace.load_payload(vae_payload, exclude_keys=None, include_keys=None)
+    # vae_policy = None
+    # vae_policy: BaseImagePolicy
+    # vae_policy = vae_workspace.model
+    # device = torch.device('cuda')
+    # vae_policy.eval().to(device)
+    # vae_policy.num_inference_steps = 16
+    # vae_policy.n_action_steps = vae_policy.horizon - vae_policy.n_obs_steps + 1
 
-    vae_policy: BaseImagePolicy
-    vae_policy = vae_workspace.model
-    # if vae_cfg.training.use_ema:
-    #     vae_policy = vae_workspace.ema_model
-
-    device = torch.device('cuda')
-    vae_policy.eval().to(device)
-    # set inference params
-    vae_policy.num_inference_steps = 16 # DDIM inference iterations
-    vae_policy.n_action_steps = vae_policy.horizon - vae_policy.n_obs_steps + 1
-
-    policy_ = error_aware_policy(policy,vae_policy)
-    return policy_
+    # policy_ = error_aware_policy(policy,vae_policy)
+    # return policy_
 
 @safe_disconnect
 def calibrate(robot: Robot, cfg: CalibrateControlConfig):
@@ -332,12 +328,15 @@ def record(
         )
 
     # Load pretrained policy
-    # policy = None if cfg.policy is None else make_policy(cfg.policy, ds_meta=dataset.meta)
-    policy = load_policy()
-    # policy = None
+    ### for recording ###
+    policy = None
+
+    ### for deploying ###
+    # policy = load_policy()
+
     if not robot.is_connected:
         robot.connect()
-        
+
     # dataset.get_camera_info(robot.cameras)
 
     listener, events = init_keyboard_listener()
@@ -426,10 +425,8 @@ def replay(
 
     if not robot.is_connected:
         robot.connect()
-    # policy,action = load_policy()
     
     log_say("Replaying episode", cfg.play_sounds, blocking=True)
-    # import pdb;pdb.set_trace()
     # with h5py.File('/home/sealab/pick_and_place.hdf5', 'r') as f:
     #     action = f['demo_66']['action'][()]
     #     image=f['demo_66']['obs']['cam_left'][()]
@@ -468,8 +465,6 @@ def control_robot(cfg: ControlPipelineConfig):
     # load_policy()
     
     robot = make_robot_from_config(cfg.robot)
-    # print(cfg.robot)
-    # import pdb;pdb.set_trace()
     if isinstance(cfg.control, CalibrateControlConfig):
         calibrate(robot, cfg.control)
     elif isinstance(cfg.control, TeleoperateControlConfig):
@@ -490,5 +485,4 @@ def control_robot(cfg: ControlPipelineConfig):
 
 
 if __name__ == "__main__":
-    # import pdb;pdb.set_trace()
     control_robot()
