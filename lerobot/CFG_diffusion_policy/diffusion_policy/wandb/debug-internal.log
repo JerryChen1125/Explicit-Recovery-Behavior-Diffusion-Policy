@@ -1,0 +1,170 @@
+2025-07-12 12:00:56,111 INFO    StreamThr :347124 [internal.py:wandb_internal():90] W&B internal server running at pid: 347124, started at: 2025-07-12 12:00:56.111563
+2025-07-12 12:00:56,113 DEBUG   HandlerThread:347124 [handler.py:handle_request():141] handle_request: status
+2025-07-12 12:00:56,114 DEBUG   SenderThread:347124 [sender.py:send_request():316] send_request: status
+2025-07-12 12:00:56,114 DEBUG   SenderThread:347124 [sender.py:send():302] send: header
+2025-07-12 12:00:56,114 INFO    WriterThread:347124 [datastore.py:open_for_write():75] open: /home/sealab/dp-yuan/diffusion_policy/wandb/run-20250712_120056-pzn66nku/run-pzn66nku.wandb
+2025-07-12 12:00:56,118 DEBUG   SenderThread:347124 [sender.py:send():302] send: run
+2025-07-12 12:00:56,961 DEBUG   HandlerThread:347124 [handler.py:handle_request():141] handle_request: check_version
+2025-07-12 12:00:56,964 INFO    SenderThread:347124 [dir_watcher.py:__init__():216] watching files in: /home/sealab/dp-yuan/diffusion_policy/wandb/run-20250712_120056-pzn66nku/files
+2025-07-12 12:00:56,964 INFO    SenderThread:347124 [sender.py:_start_run_threads():913] run started: pzn66nku with start time 1752292856.109393
+2025-07-12 12:00:56,964 DEBUG   SenderThread:347124 [sender.py:send():302] send: summary
+2025-07-12 12:00:56,964 INFO    SenderThread:347124 [sender.py:_save_file():1156] saving file wandb-summary.json with policy end
+2025-07-12 12:00:56,965 DEBUG   SenderThread:347124 [sender.py:send_request():316] send_request: check_version
+2025-07-12 12:00:57,768 DEBUG   HandlerThread:347124 [handler.py:handle_request():141] handle_request: run_start
+2025-07-12 12:00:57,776 DEBUG   HandlerThread:347124 [meta.py:__init__():35] meta init
+2025-07-12 12:00:57,776 DEBUG   HandlerThread:347124 [meta.py:__init__():50] meta init done
+2025-07-12 12:00:57,776 DEBUG   HandlerThread:347124 [meta.py:probe():216] probe
+2025-07-12 12:00:57,782 DEBUG   HandlerThread:347124 [meta.py:_setup_git():206] setup git
+2025-07-12 12:00:57,795 DEBUG   HandlerThread:347124 [meta.py:_setup_git():213] setup git done
+2025-07-12 12:00:57,795 DEBUG   HandlerThread:347124 [meta.py:_save_pip():54] save pip
+2025-07-12 12:00:57,795 DEBUG   HandlerThread:347124 [meta.py:_save_pip():68] save pip done
+2025-07-12 12:00:57,795 DEBUG   HandlerThread:347124 [meta.py:_save_conda():75] save conda
+2025-07-12 12:00:57,966 INFO    Thread-12 :347124 [dir_watcher.py:_on_file_created():275] file/dir created: /home/sealab/dp-yuan/diffusion_policy/wandb/run-20250712_120056-pzn66nku/files/wandb-summary.json
+2025-07-12 12:00:57,966 INFO    Thread-12 :347124 [dir_watcher.py:_on_file_created():275] file/dir created: /home/sealab/dp-yuan/diffusion_policy/wandb/run-20250712_120056-pzn66nku/files/requirements.txt
+2025-07-12 12:00:57,966 INFO    Thread-12 :347124 [dir_watcher.py:_on_file_created():275] file/dir created: /home/sealab/dp-yuan/diffusion_policy/wandb/run-20250712_120056-pzn66nku/files/conda-environment.yaml
+2025-07-12 12:00:59,587 DEBUG   HandlerThread:347124 [meta.py:_save_conda():85] save conda done
+2025-07-12 12:00:59,587 DEBUG   HandlerThread:347124 [meta.py:probe():254] probe done
+2025-07-12 12:00:59,681 DEBUG   SenderThread:347124 [sender.py:send():302] send: files
+2025-07-12 12:00:59,681 INFO    SenderThread:347124 [sender.py:_save_file():1156] saving file wandb-metadata.json with policy now
+2025-07-12 12:00:59,685 DEBUG   HandlerThread:347124 [handler.py:handle_request():141] handle_request: stop_status
+2025-07-12 12:00:59,686 DEBUG   SenderThread:347124 [sender.py:send_request():316] send_request: stop_status
+2025-07-12 12:00:59,689 DEBUG   HandlerThread:347124 [handler.py:handle_request():141] handle_request: poll_exit
+2025-07-12 12:00:59,967 INFO    Thread-12 :347124 [dir_watcher.py:_on_file_modified():292] file/dir modified: /home/sealab/dp-yuan/diffusion_policy/wandb/run-20250712_120056-pzn66nku/files/conda-environment.yaml
+2025-07-12 12:00:59,967 INFO    Thread-12 :347124 [dir_watcher.py:_on_file_created():275] file/dir created: /home/sealab/dp-yuan/diffusion_policy/wandb/run-20250712_120056-pzn66nku/files/wandb-metadata.json
+2025-07-12 12:01:00,090 DEBUG   SenderThread:347124 [sender.py:send():302] send: telemetry
+2025-07-12 12:01:00,091 DEBUG   SenderThread:347124 [sender.py:send():302] send: exit
+2025-07-12 12:01:00,091 INFO    SenderThread:347124 [sender.py:send_exit():438] handling exit code: 1
+2025-07-12 12:01:00,091 INFO    SenderThread:347124 [sender.py:send_exit():440] handling runtime: 1
+2025-07-12 12:01:00,091 INFO    SenderThread:347124 [sender.py:_save_file():1156] saving file wandb-summary.json with policy end
+2025-07-12 12:01:00,091 INFO    SenderThread:347124 [sender.py:send_exit():446] send defer
+2025-07-12 12:01:00,091 DEBUG   SenderThread:347124 [sender.py:send_request():316] send_request: poll_exit
+2025-07-12 12:01:00,092 DEBUG   HandlerThread:347124 [handler.py:handle_request():141] handle_request: defer
+2025-07-12 12:01:00,092 INFO    HandlerThread:347124 [handler.py:handle_request_defer():164] handle defer: 0
+2025-07-12 12:01:00,092 DEBUG   SenderThread:347124 [sender.py:send_request():316] send_request: defer
+2025-07-12 12:01:00,092 INFO    SenderThread:347124 [sender.py:send_request_defer():455] handle sender defer: 0
+2025-07-12 12:01:00,092 INFO    SenderThread:347124 [sender.py:transition_state():459] send defer: 1
+2025-07-12 12:01:00,092 DEBUG   HandlerThread:347124 [handler.py:handle_request():141] handle_request: defer
+2025-07-12 12:01:00,092 INFO    HandlerThread:347124 [handler.py:handle_request_defer():164] handle defer: 1
+2025-07-12 12:01:00,117 DEBUG   SenderThread:347124 [sender.py:send_request():316] send_request: defer
+2025-07-12 12:01:00,118 INFO    SenderThread:347124 [sender.py:send_request_defer():455] handle sender defer: 1
+2025-07-12 12:01:00,118 INFO    SenderThread:347124 [sender.py:transition_state():459] send defer: 2
+2025-07-12 12:01:00,118 DEBUG   SenderThread:347124 [sender.py:send():302] send: stats
+2025-07-12 12:01:00,118 DEBUG   HandlerThread:347124 [handler.py:handle_request():141] handle_request: defer
+2025-07-12 12:01:00,118 INFO    HandlerThread:347124 [handler.py:handle_request_defer():164] handle defer: 2
+2025-07-12 12:01:00,118 DEBUG   SenderThread:347124 [sender.py:send_request():316] send_request: defer
+2025-07-12 12:01:00,118 INFO    SenderThread:347124 [sender.py:send_request_defer():455] handle sender defer: 2
+2025-07-12 12:01:00,118 INFO    SenderThread:347124 [sender.py:transition_state():459] send defer: 3
+2025-07-12 12:01:00,118 DEBUG   HandlerThread:347124 [handler.py:handle_request():141] handle_request: defer
+2025-07-12 12:01:00,118 INFO    HandlerThread:347124 [handler.py:handle_request_defer():164] handle defer: 3
+2025-07-12 12:01:00,118 DEBUG   SenderThread:347124 [sender.py:send_request():316] send_request: defer
+2025-07-12 12:01:00,118 INFO    SenderThread:347124 [sender.py:send_request_defer():455] handle sender defer: 3
+2025-07-12 12:01:00,118 INFO    SenderThread:347124 [sender.py:transition_state():459] send defer: 4
+2025-07-12 12:01:00,119 DEBUG   HandlerThread:347124 [handler.py:handle_request():141] handle_request: defer
+2025-07-12 12:01:00,119 INFO    HandlerThread:347124 [handler.py:handle_request_defer():164] handle defer: 4
+2025-07-12 12:01:00,119 DEBUG   SenderThread:347124 [sender.py:send():302] send: summary
+2025-07-12 12:01:00,119 INFO    SenderThread:347124 [sender.py:_save_file():1156] saving file wandb-summary.json with policy end
+2025-07-12 12:01:00,119 DEBUG   SenderThread:347124 [sender.py:send_request():316] send_request: defer
+2025-07-12 12:01:00,119 INFO    SenderThread:347124 [sender.py:send_request_defer():455] handle sender defer: 4
+2025-07-12 12:01:00,119 INFO    SenderThread:347124 [sender.py:transition_state():459] send defer: 5
+2025-07-12 12:01:00,119 DEBUG   HandlerThread:347124 [handler.py:handle_request():141] handle_request: defer
+2025-07-12 12:01:00,119 INFO    HandlerThread:347124 [handler.py:handle_request_defer():164] handle defer: 5
+2025-07-12 12:01:00,119 DEBUG   SenderThread:347124 [sender.py:send_request():316] send_request: defer
+2025-07-12 12:01:00,119 INFO    SenderThread:347124 [sender.py:send_request_defer():455] handle sender defer: 5
+2025-07-12 12:01:00,193 DEBUG   HandlerThread:347124 [handler.py:handle_request():141] handle_request: poll_exit
+2025-07-12 12:01:00,549 INFO    SenderThread:347124 [sender.py:transition_state():459] send defer: 6
+2025-07-12 12:01:00,549 DEBUG   SenderThread:347124 [sender.py:send_request():316] send_request: poll_exit
+2025-07-12 12:01:00,549 DEBUG   HandlerThread:347124 [handler.py:handle_request():141] handle_request: defer
+2025-07-12 12:01:00,549 INFO    HandlerThread:347124 [handler.py:handle_request_defer():164] handle defer: 6
+2025-07-12 12:01:00,549 DEBUG   SenderThread:347124 [sender.py:send_request():316] send_request: defer
+2025-07-12 12:01:00,549 INFO    SenderThread:347124 [sender.py:send_request_defer():455] handle sender defer: 6
+2025-07-12 12:01:00,650 DEBUG   HandlerThread:347124 [handler.py:handle_request():141] handle_request: poll_exit
+2025-07-12 12:01:00,693 INFO    Thread-16 :347124 [upload_job.py:push():138] Uploaded file /tmp/tmpbno36bgtwandb/7bywo0qc-wandb-metadata.json
+2025-07-12 12:01:00,967 INFO    Thread-12 :347124 [dir_watcher.py:_on_file_modified():292] file/dir modified: /home/sealab/dp-yuan/diffusion_policy/wandb/run-20250712_120056-pzn66nku/files/wandb-summary.json
+2025-07-12 12:01:00,968 INFO    Thread-12 :347124 [dir_watcher.py:_on_file_modified():292] file/dir modified: /home/sealab/dp-yuan/diffusion_policy/wandb/run-20250712_120056-pzn66nku/files/config.yaml
+2025-07-12 12:01:00,968 INFO    Thread-12 :347124 [dir_watcher.py:_on_file_created():275] file/dir created: /home/sealab/dp-yuan/diffusion_policy/wandb/run-20250712_120056-pzn66nku/files/output.log
+2025-07-12 12:01:02,095 INFO    SenderThread:347124 [sender.py:transition_state():459] send defer: 7
+2025-07-12 12:01:02,095 DEBUG   SenderThread:347124 [sender.py:send_request():316] send_request: poll_exit
+2025-07-12 12:01:02,096 DEBUG   HandlerThread:347124 [handler.py:handle_request():141] handle_request: defer
+2025-07-12 12:01:02,096 INFO    HandlerThread:347124 [handler.py:handle_request_defer():164] handle defer: 7
+2025-07-12 12:01:02,096 DEBUG   SenderThread:347124 [sender.py:send_request():316] send_request: defer
+2025-07-12 12:01:02,096 INFO    SenderThread:347124 [sender.py:send_request_defer():455] handle sender defer: 7
+2025-07-12 12:01:02,096 INFO    SenderThread:347124 [dir_watcher.py:finish():362] shutting down directory watcher
+2025-07-12 12:01:02,197 DEBUG   HandlerThread:347124 [handler.py:handle_request():141] handle_request: poll_exit
+2025-07-12 12:01:02,968 INFO    Thread-12 :347124 [dir_watcher.py:_on_file_modified():292] file/dir modified: /home/sealab/dp-yuan/diffusion_policy/wandb/run-20250712_120056-pzn66nku/files/output.log
+2025-07-12 12:01:02,969 INFO    SenderThread:347124 [dir_watcher.py:finish():392] scan: /home/sealab/dp-yuan/diffusion_policy/wandb/run-20250712_120056-pzn66nku/files
+2025-07-12 12:01:02,969 INFO    SenderThread:347124 [dir_watcher.py:finish():406] scan save: /home/sealab/dp-yuan/diffusion_policy/wandb/run-20250712_120056-pzn66nku/files/config.yaml config.yaml
+2025-07-12 12:01:02,969 INFO    SenderThread:347124 [dir_watcher.py:finish():406] scan save: /home/sealab/dp-yuan/diffusion_policy/wandb/run-20250712_120056-pzn66nku/files/wandb-metadata.json wandb-metadata.json
+2025-07-12 12:01:02,969 INFO    SenderThread:347124 [dir_watcher.py:finish():406] scan save: /home/sealab/dp-yuan/diffusion_policy/wandb/run-20250712_120056-pzn66nku/files/conda-environment.yaml conda-environment.yaml
+2025-07-12 12:01:02,969 INFO    SenderThread:347124 [dir_watcher.py:finish():406] scan save: /home/sealab/dp-yuan/diffusion_policy/wandb/run-20250712_120056-pzn66nku/files/output.log output.log
+2025-07-12 12:01:02,969 INFO    SenderThread:347124 [dir_watcher.py:finish():406] scan save: /home/sealab/dp-yuan/diffusion_policy/wandb/run-20250712_120056-pzn66nku/files/requirements.txt requirements.txt
+2025-07-12 12:01:02,969 INFO    SenderThread:347124 [dir_watcher.py:finish():406] scan save: /home/sealab/dp-yuan/diffusion_policy/wandb/run-20250712_120056-pzn66nku/files/wandb-summary.json wandb-summary.json
+2025-07-12 12:01:02,972 INFO    SenderThread:347124 [sender.py:transition_state():459] send defer: 8
+2025-07-12 12:01:02,972 DEBUG   SenderThread:347124 [sender.py:send_request():316] send_request: poll_exit
+2025-07-12 12:01:02,974 DEBUG   HandlerThread:347124 [handler.py:handle_request():141] handle_request: defer
+2025-07-12 12:01:02,976 INFO    HandlerThread:347124 [handler.py:handle_request_defer():164] handle defer: 8
+2025-07-12 12:01:02,979 DEBUG   SenderThread:347124 [sender.py:send_request():316] send_request: defer
+2025-07-12 12:01:02,979 INFO    SenderThread:347124 [sender.py:send_request_defer():455] handle sender defer: 8
+2025-07-12 12:01:02,979 INFO    SenderThread:347124 [file_pusher.py:finish():171] shutting down file pusher
+2025-07-12 12:01:03,081 DEBUG   HandlerThread:347124 [handler.py:handle_request():141] handle_request: poll_exit
+2025-07-12 12:01:03,082 DEBUG   SenderThread:347124 [sender.py:send_request():316] send_request: poll_exit
+2025-07-12 12:01:03,182 DEBUG   HandlerThread:347124 [handler.py:handle_request():141] handle_request: poll_exit
+2025-07-12 12:01:03,183 DEBUG   SenderThread:347124 [sender.py:send_request():316] send_request: poll_exit
+2025-07-12 12:01:03,284 DEBUG   HandlerThread:347124 [handler.py:handle_request():141] handle_request: poll_exit
+2025-07-12 12:01:03,284 DEBUG   SenderThread:347124 [sender.py:send_request():316] send_request: poll_exit
+2025-07-12 12:01:03,385 DEBUG   HandlerThread:347124 [handler.py:handle_request():141] handle_request: poll_exit
+2025-07-12 12:01:03,385 DEBUG   SenderThread:347124 [sender.py:send_request():316] send_request: poll_exit
+2025-07-12 12:01:03,486 DEBUG   HandlerThread:347124 [handler.py:handle_request():141] handle_request: poll_exit
+2025-07-12 12:01:03,486 DEBUG   SenderThread:347124 [sender.py:send_request():316] send_request: poll_exit
+2025-07-12 12:01:03,587 DEBUG   HandlerThread:347124 [handler.py:handle_request():141] handle_request: poll_exit
+2025-07-12 12:01:03,587 DEBUG   SenderThread:347124 [sender.py:send_request():316] send_request: poll_exit
+2025-07-12 12:01:03,688 DEBUG   HandlerThread:347124 [handler.py:handle_request():141] handle_request: poll_exit
+2025-07-12 12:01:03,688 DEBUG   SenderThread:347124 [sender.py:send_request():316] send_request: poll_exit
+2025-07-12 12:01:03,789 DEBUG   HandlerThread:347124 [handler.py:handle_request():141] handle_request: poll_exit
+2025-07-12 12:01:03,789 DEBUG   SenderThread:347124 [sender.py:send_request():316] send_request: poll_exit
+2025-07-12 12:01:03,835 INFO    Thread-21 :347124 [upload_job.py:push():138] Uploaded file /home/sealab/dp-yuan/diffusion_policy/wandb/run-20250712_120056-pzn66nku/files/wandb-summary.json
+2025-07-12 12:01:03,891 DEBUG   HandlerThread:347124 [handler.py:handle_request():141] handle_request: poll_exit
+2025-07-12 12:01:03,891 DEBUG   SenderThread:347124 [sender.py:send_request():316] send_request: poll_exit
+2025-07-12 12:01:03,933 INFO    Thread-17 :347124 [upload_job.py:push():138] Uploaded file /home/sealab/dp-yuan/diffusion_policy/wandb/run-20250712_120056-pzn66nku/files/config.yaml
+2025-07-12 12:01:03,934 INFO    Thread-19 :347124 [upload_job.py:push():138] Uploaded file /home/sealab/dp-yuan/diffusion_policy/wandb/run-20250712_120056-pzn66nku/files/output.log
+2025-07-12 12:01:03,965 INFO    Thread-20 :347124 [upload_job.py:push():138] Uploaded file /home/sealab/dp-yuan/diffusion_policy/wandb/run-20250712_120056-pzn66nku/files/requirements.txt
+2025-07-12 12:01:03,992 DEBUG   HandlerThread:347124 [handler.py:handle_request():141] handle_request: poll_exit
+2025-07-12 12:01:03,992 DEBUG   SenderThread:347124 [sender.py:send_request():316] send_request: poll_exit
+2025-07-12 12:01:04,081 INFO    Thread-18 :347124 [upload_job.py:push():138] Uploaded file /home/sealab/dp-yuan/diffusion_policy/wandb/run-20250712_120056-pzn66nku/files/conda-environment.yaml
+2025-07-12 12:01:04,093 DEBUG   HandlerThread:347124 [handler.py:handle_request():141] handle_request: poll_exit
+2025-07-12 12:01:04,093 DEBUG   SenderThread:347124 [sender.py:send_request():316] send_request: poll_exit
+2025-07-12 12:01:04,194 DEBUG   HandlerThread:347124 [handler.py:handle_request():141] handle_request: poll_exit
+2025-07-12 12:01:04,194 DEBUG   SenderThread:347124 [sender.py:send_request():316] send_request: poll_exit
+2025-07-12 12:01:04,281 INFO    Thread-11 :347124 [sender.py:transition_state():459] send defer: 9
+2025-07-12 12:01:04,282 DEBUG   HandlerThread:347124 [handler.py:handle_request():141] handle_request: defer
+2025-07-12 12:01:04,282 INFO    HandlerThread:347124 [handler.py:handle_request_defer():164] handle defer: 9
+2025-07-12 12:01:04,282 DEBUG   SenderThread:347124 [sender.py:send_request():316] send_request: defer
+2025-07-12 12:01:04,282 INFO    SenderThread:347124 [sender.py:send_request_defer():455] handle sender defer: 9
+2025-07-12 12:01:04,295 DEBUG   HandlerThread:347124 [handler.py:handle_request():141] handle_request: poll_exit
+2025-07-12 12:01:04,572 INFO    SenderThread:347124 [sender.py:transition_state():459] send defer: 10
+2025-07-12 12:01:04,573 DEBUG   SenderThread:347124 [sender.py:send_request():316] send_request: poll_exit
+2025-07-12 12:01:04,573 DEBUG   HandlerThread:347124 [handler.py:handle_request():141] handle_request: defer
+2025-07-12 12:01:04,573 INFO    HandlerThread:347124 [handler.py:handle_request_defer():164] handle defer: 10
+2025-07-12 12:01:04,573 DEBUG   SenderThread:347124 [sender.py:send_request():316] send_request: defer
+2025-07-12 12:01:04,573 INFO    SenderThread:347124 [sender.py:send_request_defer():455] handle sender defer: 10
+2025-07-12 12:01:04,574 INFO    SenderThread:347124 [sender.py:transition_state():459] send defer: 11
+2025-07-12 12:01:04,574 DEBUG   HandlerThread:347124 [handler.py:handle_request():141] handle_request: defer
+2025-07-12 12:01:04,574 DEBUG   SenderThread:347124 [sender.py:send():302] send: final
+2025-07-12 12:01:04,574 INFO    HandlerThread:347124 [handler.py:handle_request_defer():164] handle defer: 11
+2025-07-12 12:01:04,574 DEBUG   SenderThread:347124 [sender.py:send():302] send: footer
+2025-07-12 12:01:04,574 DEBUG   SenderThread:347124 [sender.py:send_request():316] send_request: defer
+2025-07-12 12:01:04,574 INFO    SenderThread:347124 [sender.py:send_request_defer():455] handle sender defer: 11
+2025-07-12 12:01:04,674 DEBUG   HandlerThread:347124 [handler.py:handle_request():141] handle_request: poll_exit
+2025-07-12 12:01:04,674 DEBUG   SenderThread:347124 [sender.py:send_request():316] send_request: poll_exit
+2025-07-12 12:01:04,674 INFO    SenderThread:347124 [file_pusher.py:join():176] waiting for file pusher
+2025-07-12 12:01:05,482 DEBUG   HandlerThread:347124 [handler.py:handle_request():141] handle_request: sampled_history
+2025-07-12 12:01:05,483 DEBUG   HandlerThread:347124 [handler.py:handle_request():141] handle_request: get_summary
+2025-07-12 12:01:05,483 INFO    MainThread:347124 [wandb_run.py:_footer_history_summary_info():3305] rendering history
+2025-07-12 12:01:05,483 INFO    MainThread:347124 [wandb_run.py:_footer_history_summary_info():3337] rendering summary
+2025-07-12 12:01:05,483 INFO    MainThread:347124 [wandb_run.py:_footer_sync_info():3261] logging synced files
+2025-07-12 12:01:05,484 DEBUG   HandlerThread:347124 [handler.py:handle_request():141] handle_request: shutdown
+2025-07-12 12:01:05,484 INFO    HandlerThread:347124 [handler.py:finish():810] shutting down handler
+2025-07-12 12:01:05,574 INFO    WriterThread:347124 [datastore.py:close():279] close: /home/sealab/dp-yuan/diffusion_policy/wandb/run-20250712_120056-pzn66nku/run-pzn66nku.wandb
+2025-07-12 12:01:06,382 INFO    SenderThread:347124 [sender.py:finish():1312] shutting down sender
+2025-07-12 12:01:06,382 INFO    SenderThread:347124 [file_pusher.py:finish():171] shutting down file pusher
+2025-07-12 12:01:06,382 INFO    SenderThread:347124 [file_pusher.py:join():176] waiting for file pusher
+2025-07-12 12:01:06,486 INFO    MainThread:347124 [internal.py:handle_exit():80] Internal process exited

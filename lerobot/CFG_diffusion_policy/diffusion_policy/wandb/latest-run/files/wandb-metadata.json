@@ -1,0 +1,24 @@
+{
+    "os": "Linux-6.8.0-40-generic-x86_64-with-glibc2.35",
+    "python": "3.9.18",
+    "heartbeatAt": "2025-07-12T04:00:57.776670",
+    "startedAt": "2025-07-12T04:00:56.106874",
+    "docker": null,
+    "gpu": "NVIDIA GeForce RTX 3090",
+    "gpu_count": 1,
+    "cpu_count": 28,
+    "cuda": null,
+    "args": [],
+    "state": "running",
+    "program": "/home/sealab/dp-yuan/diffusion_policy/wandb_check.py",
+    "codePath": "wandb_check.py",
+    "git": {
+        "remote": "https://github.com/real-stanford/diffusion_policy.git",
+        "commit": "5ba07ac6661db573af695b419a7947ecb704690f"
+    },
+    "email": "zundongke@gmail.com",
+    "root": "/home/sealab/dp-yuan/diffusion_policy",
+    "host": "sealab-Precision-3680",
+    "username": "sealab",
+    "executable": "/home/sealab/miniconda3/envs/robodiff/bin/python"
+}

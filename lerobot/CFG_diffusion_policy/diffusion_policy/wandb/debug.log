@@ -1,0 +1,26 @@
+2025-07-12 12:00:56,107 INFO    MainThread:347090 [wandb_setup.py:_flush():76] Configure stats pid to 347090
+2025-07-12 12:00:56,107 INFO    MainThread:347090 [wandb_setup.py:_flush():76] Loading settings from /home/sealab/.config/wandb/settings
+2025-07-12 12:00:56,107 INFO    MainThread:347090 [wandb_setup.py:_flush():76] Loading settings from /home/sealab/dp-yuan/diffusion_policy/wandb/settings
+2025-07-12 12:00:56,107 INFO    MainThread:347090 [wandb_setup.py:_flush():76] Loading settings from environment variables: {'_require_service': 'True'}
+2025-07-12 12:00:56,107 INFO    MainThread:347090 [wandb_setup.py:_flush():76] Inferring run settings from compute environment: {'program_relpath': 'wandb_check.py', 'program': '/home/sealab/dp-yuan/diffusion_policy/wandb_check.py'}
+2025-07-12 12:00:56,107 INFO    MainThread:347090 [wandb_init.py:_log_setup():461] Logging user logs to /home/sealab/dp-yuan/diffusion_policy/wandb/run-20250712_120056-pzn66nku/logs/debug.log
+2025-07-12 12:00:56,107 INFO    MainThread:347090 [wandb_init.py:_log_setup():462] Logging internal logs to /home/sealab/dp-yuan/diffusion_policy/wandb/run-20250712_120056-pzn66nku/logs/debug-internal.log
+2025-07-12 12:00:56,107 INFO    MainThread:347090 [wandb_init.py:init():495] calling init triggers
+2025-07-12 12:00:56,107 INFO    MainThread:347090 [wandb_init.py:init():498] wandb.init called with sweep_config: {}
+config: {}
+2025-07-12 12:00:56,107 INFO    MainThread:347090 [wandb_init.py:init():548] starting backend
+2025-07-12 12:00:56,107 INFO    MainThread:347090 [wandb_init.py:init():552] setting up manager
+2025-07-12 12:00:56,108 INFO    MainThread:347090 [backend.py:_multiprocessing_setup():97] multiprocessing start_methods=fork,spawn,forkserver, using: fork
+2025-07-12 12:00:56,109 INFO    MainThread:347090 [wandb_init.py:init():558] backend started and connected
+2025-07-12 12:00:56,110 INFO    MainThread:347090 [wandb_init.py:init():636] updated telemetry
+2025-07-12 12:00:56,117 INFO    MainThread:347090 [wandb_init.py:init():667] communicating run to backend with 30 second timeout
+2025-07-12 12:00:56,960 INFO    MainThread:347090 [wandb_run.py:_on_init():1982] communicating current version
+2025-07-12 12:00:57,760 INFO    MainThread:347090 [wandb_run.py:_on_init():1986] got version response upgrade_message: "wandb version 0.21.0 is available!  To upgrade, please run:\n $ pip install wandb --upgrade"
+
+2025-07-12 12:00:57,760 INFO    MainThread:347090 [wandb_init.py:init():700] starting run threads in backend
+2025-07-12 12:00:59,684 INFO    MainThread:347090 [wandb_run.py:_console_start():1962] atexit reg
+2025-07-12 12:00:59,684 INFO    MainThread:347090 [wandb_run.py:_redirect():1820] redirect: SettingsConsole.WRAP_RAW
+2025-07-12 12:00:59,684 INFO    MainThread:347090 [wandb_run.py:_redirect():1885] Wrapping output streams.
+2025-07-12 12:00:59,684 INFO    MainThread:347090 [wandb_run.py:_redirect():1907] Redirects installed.
+2025-07-12 12:00:59,684 INFO    MainThread:347090 [wandb_init.py:init():732] run started, returning control to user process
+2025-07-12 12:01:06,486 WARNING MsgRouterThr:347090 [router.py:message_loop():76] message_loop has been closed

@@ -1,0 +1,266 @@
+{
+  "builder_name": "parquet",
+  "citation": "",
+  "config_name": "default",
+  "dataset_name": "aloha_static_battery",
+  "dataset_size": 4476150,
+  "description": "",
+  "download_checksums": {
+    "hf://datasets/lerobot/aloha_static_battery@72a66484202b2c9e08d4b90c00ad8556dfa62e0d/data/train-00000-of-00049.parquet": {
+      "num_bytes": 44675,
+      "checksum": null
+    },
+    "hf://datasets/lerobot/aloha_static_battery@72a66484202b2c9e08d4b90c00ad8556dfa62e0d/data/train-00001-of-00049.parquet": {
+      "num_bytes": 44502,
+      "checksum": null
+    },
+    "hf://datasets/lerobot/aloha_static_battery@72a66484202b2c9e08d4b90c00ad8556dfa62e0d/data/train-00002-of-00049.parquet": {
+      "num_bytes": 43752,
+      "checksum": null
+    },
+    "hf://datasets/lerobot/aloha_static_battery@72a66484202b2c9e08d4b90c00ad8556dfa62e0d/data/train-00003-of-00049.parquet": {
+      "num_bytes": 43595,
+      "checksum": null
+    },
+    "hf://datasets/lerobot/aloha_static_battery@72a66484202b2c9e08d4b90c00ad8556dfa62e0d/data/train-00004-of-00049.parquet": {
+      "num_bytes": 44937,
+      "checksum": null
+    },
+    "hf://datasets/lerobot/aloha_static_battery@72a66484202b2c9e08d4b90c00ad8556dfa62e0d/data/train-00005-of-00049.parquet": {
+      "num_bytes": 44108,
+      "checksum": null
+    },
+    "hf://datasets/lerobot/aloha_static_battery@72a66484202b2c9e08d4b90c00ad8556dfa62e0d/data/train-00006-of-00049.parquet": {
+      "num_bytes": 42258,
+      "checksum": null
+    },
+    "hf://datasets/lerobot/aloha_static_battery@72a66484202b2c9e08d4b90c00ad8556dfa62e0d/data/train-00007-of-00049.parquet": {
+      "num_bytes": 44408,
+      "checksum": null
+    },
+    "hf://datasets/lerobot/aloha_static_battery@72a66484202b2c9e08d4b90c00ad8556dfa62e0d/data/train-00008-of-00049.parquet": {
+      "num_bytes": 43545,
+      "checksum": null
+    },
+    "hf://datasets/lerobot/aloha_static_battery@72a66484202b2c9e08d4b90c00ad8556dfa62e0d/data/train-00009-of-00049.parquet": {
+      "num_bytes": 44884,
+      "checksum": null
+    },
+    "hf://datasets/lerobot/aloha_static_battery@72a66484202b2c9e08d4b90c00ad8556dfa62e0d/data/train-00010-of-00049.parquet": {
+      "num_bytes": 44065,
+      "checksum": null
+    },
+    "hf://datasets/lerobot/aloha_static_battery@72a66484202b2c9e08d4b90c00ad8556dfa62e0d/data/train-00011-of-00049.parquet": {
+      "num_bytes": 44321,
+      "checksum": null
+    },
+    "hf://datasets/lerobot/aloha_static_battery@72a66484202b2c9e08d4b90c00ad8556dfa62e0d/data/train-00012-of-00049.parquet": {
+      "num_bytes": 44256,
+      "checksum": null
+    },
+    "hf://datasets/lerobot/aloha_static_battery@72a66484202b2c9e08d4b90c00ad8556dfa62e0d/data/train-00013-of-00049.parquet": {
+      "num_bytes": 44278,
+      "checksum": null
+    },
+    "hf://datasets/lerobot/aloha_static_battery@72a66484202b2c9e08d4b90c00ad8556dfa62e0d/data/train-00014-of-00049.parquet": {
+      "num_bytes": 45624,
+      "checksum": null
+    },
+    "hf://datasets/lerobot/aloha_static_battery@72a66484202b2c9e08d4b90c00ad8556dfa62e0d/data/train-00015-of-00049.parquet": {
+      "num_bytes": 43966,
+      "checksum": null
+    },
+    "hf://datasets/lerobot/aloha_static_battery@72a66484202b2c9e08d4b90c00ad8556dfa62e0d/data/train-00016-of-00049.parquet": {
+      "num_bytes": 42398,
+      "checksum": null
+    },
+    "hf://datasets/lerobot/aloha_static_battery@72a66484202b2c9e08d4b90c00ad8556dfa62e0d/data/train-00017-of-00049.parquet": {
+      "num_bytes": 43380,
+      "checksum": null
+    },
+    "hf://datasets/lerobot/aloha_static_battery@72a66484202b2c9e08d4b90c00ad8556dfa62e0d/data/train-00018-of-00049.parquet": {
+      "num_bytes": 39918,
+      "checksum": null
+    },
+    "hf://datasets/lerobot/aloha_static_battery@72a66484202b2c9e08d4b90c00ad8556dfa62e0d/data/train-00019-of-00049.parquet": {
+      "num_bytes": 43560,
+      "checksum": null
+    },
+    "hf://datasets/lerobot/aloha_static_battery@72a66484202b2c9e08d4b90c00ad8556dfa62e0d/data/train-00020-of-00049.parquet": {
+      "num_bytes": 45708,
+      "checksum": null
+    },
+    "hf://datasets/lerobot/aloha_static_battery@72a66484202b2c9e08d4b90c00ad8556dfa62e0d/data/train-00021-of-00049.parquet": {
+      "num_bytes": 42562,
+      "checksum": null
+    },
+    "hf://datasets/lerobot/aloha_static_battery@72a66484202b2c9e08d4b90c00ad8556dfa62e0d/data/train-00022-of-00049.parquet": {
+      "num_bytes": 42154,
+      "checksum": null
+    },
+    "hf://datasets/lerobot/aloha_static_battery@72a66484202b2c9e08d4b90c00ad8556dfa62e0d/data/train-00023-of-00049.parquet": {
+      "num_bytes": 43798,
+      "checksum": null
+    },
+    "hf://datasets/lerobot/aloha_static_battery@72a66484202b2c9e08d4b90c00ad8556dfa62e0d/data/train-00024-of-00049.parquet": {
+      "num_bytes": 41427,
+      "checksum": null
+    },
+    "hf://datasets/lerobot/aloha_static_battery@72a66484202b2c9e08d4b90c00ad8556dfa62e0d/data/train-00025-of-00049.parquet": {
+      "num_bytes": 44597,
+      "checksum": null
+    },
+    "hf://datasets/lerobot/aloha_static_battery@72a66484202b2c9e08d4b90c00ad8556dfa62e0d/data/train-00026-of-00049.parquet": {
+      "num_bytes": 43903,
+      "checksum": null
+    },
+    "hf://datasets/lerobot/aloha_static_battery@72a66484202b2c9e08d4b90c00ad8556dfa62e0d/data/train-00027-of-00049.parquet": {
+      "num_bytes": 43974,
+      "checksum": null
+    },
+    "hf://datasets/lerobot/aloha_static_battery@72a66484202b2c9e08d4b90c00ad8556dfa62e0d/data/train-00028-of-00049.parquet": {
+      "num_bytes": 45230,
+      "checksum": null
+    },
+    "hf://datasets/lerobot/aloha_static_battery@72a66484202b2c9e08d4b90c00ad8556dfa62e0d/data/train-00029-of-00049.parquet": {
+      "num_bytes": 45792,
+      "checksum": null
+    },
+    "hf://datasets/lerobot/aloha_static_battery@72a66484202b2c9e08d4b90c00ad8556dfa62e0d/data/train-00030-of-00049.parquet": {
+      "num_bytes": 44043,
+      "checksum": null
+    },
+    "hf://datasets/lerobot/aloha_static_battery@72a66484202b2c9e08d4b90c00ad8556dfa62e0d/data/train-00031-of-00049.parquet": {
+      "num_bytes": 45638,
+      "checksum": null
+    },
+    "hf://datasets/lerobot/aloha_static_battery@72a66484202b2c9e08d4b90c00ad8556dfa62e0d/data/train-00032-of-00049.parquet": {
+      "num_bytes": 43337,
+      "checksum": null
+    },
+    "hf://datasets/lerobot/aloha_static_battery@72a66484202b2c9e08d4b90c00ad8556dfa62e0d/data/train-00033-of-00049.parquet": {
+      "num_bytes": 44555,
+      "checksum": null
+    },
+    "hf://datasets/lerobot/aloha_static_battery@72a66484202b2c9e08d4b90c00ad8556dfa62e0d/data/train-00034-of-00049.parquet": {
+      "num_bytes": 41647,
+      "checksum": null
+    },
+    "hf://datasets/lerobot/aloha_static_battery@72a66484202b2c9e08d4b90c00ad8556dfa62e0d/data/train-00035-of-00049.parquet": {
+      "num_bytes": 42654,
+      "checksum": null
+    },
+    "hf://datasets/lerobot/aloha_static_battery@72a66484202b2c9e08d4b90c00ad8556dfa62e0d/data/train-00036-of-00049.parquet": {
+      "num_bytes": 44009,
+      "checksum": null
+    },
+    "hf://datasets/lerobot/aloha_static_battery@72a66484202b2c9e08d4b90c00ad8556dfa62e0d/data/train-00037-of-00049.parquet": {
+      "num_bytes": 42987,
+      "checksum": null
+    },
+    "hf://datasets/lerobot/aloha_static_battery@72a66484202b2c9e08d4b90c00ad8556dfa62e0d/data/train-00038-of-00049.parquet": {
+      "num_bytes": 40334,
+      "checksum": null
+    },
+    "hf://datasets/lerobot/aloha_static_battery@72a66484202b2c9e08d4b90c00ad8556dfa62e0d/data/train-00039-of-00049.parquet": {
+      "num_bytes": 43223,
+      "checksum": null
+    },
+    "hf://datasets/lerobot/aloha_static_battery@72a66484202b2c9e08d4b90c00ad8556dfa62e0d/data/train-00040-of-00049.parquet": {
+      "num_bytes": 44018,
+      "checksum": null
+    },
+    "hf://datasets/lerobot/aloha_static_battery@72a66484202b2c9e08d4b90c00ad8556dfa62e0d/data/train-00041-of-00049.parquet": {
+      "num_bytes": 43567,
+      "checksum": null
+    },
+    "hf://datasets/lerobot/aloha_static_battery@72a66484202b2c9e08d4b90c00ad8556dfa62e0d/data/train-00042-of-00049.parquet": {
+      "num_bytes": 41993,
+      "checksum": null
+    },
+    "hf://datasets/lerobot/aloha_static_battery@72a66484202b2c9e08d4b90c00ad8556dfa62e0d/data/train-00043-of-00049.parquet": {
+      "num_bytes": 42583,
+      "checksum": null
+    },
+    "hf://datasets/lerobot/aloha_static_battery@72a66484202b2c9e08d4b90c00ad8556dfa62e0d/data/train-00044-of-00049.parquet": {
+      "num_bytes": 42122,
+      "checksum": null
+    },
+    "hf://datasets/lerobot/aloha_static_battery@72a66484202b2c9e08d4b90c00ad8556dfa62e0d/data/train-00045-of-00049.parquet": {
+      "num_bytes": 43325,
+      "checksum": null
+    },
+    "hf://datasets/lerobot/aloha_static_battery@72a66484202b2c9e08d4b90c00ad8556dfa62e0d/data/train-00046-of-00049.parquet": {
+      "num_bytes": 44458,
+      "checksum": null
+    },
+    "hf://datasets/lerobot/aloha_static_battery@72a66484202b2c9e08d4b90c00ad8556dfa62e0d/data/train-00047-of-00049.parquet": {
+      "num_bytes": 40411,
+      "checksum": null
+    },
+    "hf://datasets/lerobot/aloha_static_battery@72a66484202b2c9e08d4b90c00ad8556dfa62e0d/data/train-00048-of-00049.parquet": {
+      "num_bytes": 39884,
+      "checksum": null
+    }
+  },
+  "download_size": 2130363,
+  "features": {
+    "observation.state": {
+      "feature": {
+        "dtype": "float32",
+        "_type": "Value"
+      },
+      "length": 14,
+      "_type": "Sequence"
+    },
+    "action": {
+      "feature": {
+        "dtype": "float32",
+        "_type": "Value"
+      },
+      "length": 14,
+      "_type": "Sequence"
+    },
+    "episode_index": {
+      "dtype": "int64",
+      "_type": "Value"
+    },
+    "frame_index": {
+      "dtype": "int64",
+      "_type": "Value"
+    },
+    "timestamp": {
+      "dtype": "float32",
+      "_type": "Value"
+    },
+    "next.done": {
+      "dtype": "bool",
+      "_type": "Value"
+    },
+    "index": {
+      "dtype": "int64",
+      "_type": "Value"
+    },
+    "task_index": {
+      "dtype": "int64",
+      "_type": "Value"
+    }
+  },
+  "homepage": "",
+  "license": "",
+  "size_in_bytes": 6606513,
+  "splits": {
+    "train": {
+      "name": "train",
+      "num_bytes": 4476150,
+      "num_examples": 29400,
+      "dataset_name": "aloha_static_battery"
+    }
+  },
+  "version": {
+    "version_str": "0.0.0",
+    "major": 0,
+    "minor": 0,
+    "patch": 0
+  }
+}

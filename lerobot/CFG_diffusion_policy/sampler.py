@@ -1,0 +1,409 @@
+from typing import Optional
+import numpy as np
+import numba
+from diffusion_policy.common.replay_buffer import ReplayBuffer
+from diffusion_policy.common.goal_utli import find_keyframes_by_state_change
+import random
+@numba.jit(nopython=True)
+def create_indices(
+    episode_ends:np.ndarray, sequence_length:int, 
+    episode_mask: np.ndarray,
+    pad_before: int=0, pad_after: int=0,
+    debug:bool=True) -> np.ndarray:
+    # episode_mask.shape == episode_ends.shape        
+    pad_before = min(max(pad_before, 0), sequence_length-1)
+    pad_after = min(max(pad_after, 0), sequence_length-1)
+
+    indices = list()
+    for i in range(len(episode_ends)):
+        if not episode_mask[i]:
+            # skip episode
+            continue
+        start_idx = 0
+        if i > 0:
+            start_idx = episode_ends[i-1]
+        end_idx = episode_ends[i]
+        episode_length = end_idx - start_idx
+        
+        min_start = -pad_before
+        max_start = episode_length - sequence_length + pad_after
+        
+        # range stops one idx before end
+        for idx in range(min_start, max_start+1):
+            buffer_start_idx = max(idx, 0) + start_idx
+            buffer_end_idx = min(idx+sequence_length, episode_length) + start_idx
+            start_offset = buffer_start_idx - (idx+start_idx)
+            end_offset = (idx+sequence_length+start_idx) - buffer_end_idx
+            sample_start_idx = 0 + start_offset
+            sample_end_idx = sequence_length - end_offset
+            if debug:
+                assert(start_offset >= 0)
+                assert(end_offset >= 0)
+                assert (sample_end_idx - sample_start_idx) == (buffer_end_idx - buffer_start_idx)
+            indices.append([ start_idx,end_idx,
+                buffer_start_idx, buffer_end_idx, 
+                sample_start_idx, sample_end_idx])
+    indices = np.array(indices)
+    print(indices.shape[0])
+    return indices
+
+def create_indices_hdf5(
+    data, sequence_length:int, 
+
+    pad_before: int=0, pad_after: int=0,
+    debug:bool=True) -> np.ndarray:
+    # episode_mask.shape == n_episodes.shape   
+   
+    pad_before = min(max(pad_before, 0), sequence_length-1)
+    pad_after = min(max(pad_after, 0), sequence_length-1)
+    episode_length=data['actions'].shape[0]
+    
+    indices = list()
+      
+    min_start = -pad_before
+    max_start = episode_length - sequence_length + pad_after
+    
+        # range stops one idx before end
+    for idx in range(min_start, max_start+1):
+        buffer_start_idx = max(idx, 0) 
+        buffer_end_idx = min(idx+sequence_length, episode_length) 
+        start_offset = buffer_start_idx - (idx)
+        end_offset = (idx+sequence_length) - buffer_end_idx
+        sample_start_idx = 0 + start_offset
+        sample_end_idx = sequence_length - end_offset
+        if debug:
+            assert(start_offset >= 0)
+            assert(end_offset >= 0)
+            assert (sample_end_idx - sample_start_idx) == (buffer_end_idx - buffer_start_idx)
+        indices.append([
+            buffer_start_idx, buffer_end_idx, 
+            sample_start_idx, sample_end_idx])
+    indices = np.array(indices)
+    
+    return indices
+
+def get_val_mask(n_episodes, val_ratio, seed=0):
+    val_mask = np.zeros(n_episodes, dtype=bool)
+    if val_ratio <= 0:
+        return val_mask
+
+    # have at least 1 episode for validation, and at least 1 episode for train
+    n_val = min(max(1, round(n_episodes * val_ratio)), n_episodes-1)
+    rng = np.random.default_rng(seed=seed)
+    val_idxs = rng.choice(n_episodes, size=n_val, replace=False)
+    val_mask[val_idxs] = True
+    return val_mask
+
+
+def downsample_mask(mask, max_n, seed=0):
+    # subsample training data
+    train_mask = mask
+    if (max_n is not None) and (np.sum(train_mask) > max_n):
+        n_train = int(max_n)
+        curr_train_idxs = np.nonzero(train_mask)[0]
+        rng = np.random.default_rng(seed=seed)
+        train_idxs_idx = rng.choice(len(curr_train_idxs), size=n_train, replace=False)
+        train_idxs = curr_train_idxs[train_idxs_idx]
+        train_mask = np.zeros_like(train_mask)
+        train_mask[train_idxs] = True
+        assert np.sum(train_mask) == n_train
+    return train_mask
+
+class SequenceSampler:
+    def __init__(self, 
+        replay_buffer: ReplayBuffer, 
+        sequence_length:int,
+        n_obs_steps:int,
+        n_action_steps:int,
+        pad_before:int=0,
+        pad_after:int=0,
+        keys=None,
+        key_first_k=dict(),
+        episode_mask: Optional[np.ndarray]=None,
+        ):
+        """
+        key_first_k: dict str: int
+            Only take first k data from these keys (to improve perf)
+        """
+
+        super().__init__()
+        assert(sequence_length >= 1)
+        
+        if keys is None:
+            keys = list(replay_buffer.keys())
+        
+        # episode_ends = replay_buffer.episode_ends[:]
+        data=replay_buffer.data
+        n_episodes=replay_buffer.n_episodes
+        if episode_mask is None:
+            episode_mask = np.ones(n_episodes, dtype=bool)
+       
+        if np.any(episode_mask):
+            indices = create_indices(, 
+                sequence_length=sequence_length, 
+                episode_mask=episode_mask,
+                pad_before=pad_before, 
+                pad_after=pad_after,
+                debug=False
+                )
+        else:
+            indices = np.zeros((0,4), dtype=np.int64)
+
+        # (buffer_start_idx, buffer_end_idx, sample_start_idx, sample_end_idx)
+        self.indices = indices 
+        self.keys = list(keys) # prevent OmegaConf list performance problem
+        self.sequence_length = sequence_length
+        self.replay_buffer = replay_buffer.data
+        self.key_first_k = key_first_k
+        self.n_action_steps=n_action_steps
+        self.n_obs_steps=n_obs_steps
+        
+    def __len__(self):
+        return len(self.indices)
+        
+    def sample_sequence(self, idx):
+        buffer_start_idx, buffer_end_idx, sample_start_idx, sample_end_idx \
+            = self.indices[idx]
+        result = dict()
+        
+        # episode_action=self.replay_buffer['action'][start_idx:end_idx]
+        
+        # Goal_idx=find_keyframes_by_state_change(episode_action,20,self.n_action_steps,start_idx)
+        random_bool = random.choice([True, False])
+        goal_list=list()
+        goal_image=list()
+        goal_action_temp=list()
+        Flage=False
+        # for goal_idx in Goal_idx:
+        #     pre_goal_idx=start_idx
+        #     if goal_idx<=buffer_start_idx:
+        #         if goal_idx> pre_goal_idx:
+        #             pre_goal_idx=goal_idx
+        #     if pre_goal_idx==buffer_start_idx:
+        #         Flage=True
+           
+        
+        for key in self.keys:
+            
+
+            
+            input_arr = self.replay_buffer[key][()]
+            # performance optimization, avoid small allocation if possible
+            if key not in self.key_first_k:
+                sample = input_arr[buffer_start_idx:buffer_end_idx]
+            else:
+                # performance optimization, only load used obs steps
+                n_data = buffer_end_idx - buffer_start_idx
+                k_data = min(self.key_first_k[key], n_data)
+                # fill value with Nan to catch bugs
+                # the non-loaded region should never be used
+                sample = np.full((n_data,) + input_arr.shape[1:], 
+                    fill_value=np.nan, dtype=input_arr.dtype)
+                try:
+                    sample[:k_data] = input_arr[buffer_start_idx:buffer_start_idx+k_data]
+                except Exception as e:
+                    import pdb; pdb.set_trace()
+            data = sample
+            
+            # if key=='actions':
+                
+            #     # if len(goal_list)==0:
+                   
+                  
+            #     goal_action=self.replay_buffer['actions'][buffer_start_idx-1:buffer_end_idx-1]                      
+            #         # goal_action=np.stack([goal_action]*(buffer_end_idx-buffer_start_idx), axis=0)
+            #     # if Flage:
+            #     #     if random_bool:
+            #     #         goal_action=self.replay_buffer['action'][buffer_start_idx:buffer_end_idx]
+            #     #         # goal_action=np.stack([goal_action_temp,self.replay_buffer['action'][buffer_start_idx,buffer_end_idx-1]], axis=0)
+            #     #     else:
+            #     #         goal_action=self.replay_buffer['action'][buffer_start_idx-1:buffer_end_idx-1]
+            #             # goal_action=np.vstack([goal_action,goal_action[-1]])
+                   
+                    
+                   
+            #     # else:
+                   
+            #     #     for i  in range(len(goal_list)):
+            #     #         if buffer_end_idx>=goal_list[i]>=buffer_start_idx:
+                           
+            #     #             if  i==len(goal_list)-1:
+            #     #                 if goal_list[i]==buffer_end_idx:
+            #     #                     goal_action=self.replay_buffer['action'][pre_goal_idx]                      
+            #     #                     goal_action=np.stack([goal_action]*(buffer_end_idx-buffer_start_idx), axis=0)
+                                   
+            #     #                 elif goal_list[i]==buffer_start_idx:
+            #     #                      goal_action=self.replay_buffer['action'][pre_goal_idx]                      
+            #     #                      goal_action=np.stack([goal_action]*(buffer_end_idx-buffer_start_idx), axis=0)                        
+            #     #                 else:
+                                   
+            #     #                     goal_action=self.replay_buffer['action'][pre_goal_idx]
+            #     #                     goal_action=np.stack([goal_action]*(buffer_end_idx-buffer_start_idx), axis=0)   
+            #                         # goal_action_temp=np.array([goal_action[-1]]*(buffer_end_idx-buffer_start_idx-len(goal_action)))
+            #                         # goal_action=np.concatenate([goal_action,goal_action_temp],axis=0)
+                           
+                                  
+                
+                                
+            #                 # else:
+            #                 #     goal_action_temp=[]
+            #                 #     for j in range(goal_list[i],goal_list[i+1]):
+            #                 #         if j ==0:
+            #                 #             goal_action_temp.append(self.replay_buffer['action'][j])
+            #                 #         else:
+            #                 #             goal_action_temp.append(self.replay_buffer['action'][j-1])
+            #                 #     goal_action_temp=np.array(goal_action_temp)
+            #                 #     goal_action.append(goal_action_temp)
+                    
+               
+               
+            #     # if goal_action.shape[0]<self.sequence_length:
+                    
+            #     #     goal_action_temp=np.zeros(
+            #     #         shape=(self.sequence_length,) + self.replay_buffer['action'].shape[1:],
+            #     #     dtype=self.replay_buffer['action'].dtype)
+            #     #     goal_action_temp[:goal_action.shape[0]]=goal_action
+            #     #     goal_action_temp[goal_action.shape[0]:]=goal_action[-1]
+            #     #     goal_action=goal_action_temp
+                
+            # if (sample_start_idx > 0) or (sample_end_idx < self.sequence_length):
+            #     # if we need to pad, create a new array
+                
+                
+            #     data = np.zeros(
+            #         shape=(self.sequence_length,) + input_arr.shape[1:],
+            #         dtype=input_arr.dtype)
+            #     if key=='actions':
+                    
+            #         goal_action_temp=np.zeros(
+            #             shape=(self.sequence_length,) + self.replay_buffer['actions'].shape[1:],
+            #         dtype=self.replay_buffer['actions'].dtype)
+            #     if sample_start_idx > 0:
+            #         data[:sample_start_idx] = sample[0]
+            #         if key=='actions':
+            #             goal_action_temp[:sample_end_idx]=goal_action[0]
+            #     if sample_end_idx < self.sequence_length:
+            #         data[sample_end_idx:] = sample[-1]
+            #         if key=='actions':
+            #             goal_action_temp[sample_end_idx:]=goal_action[-1]
+            #     data[sample_start_idx:sample_end_idx] = sample
+            #     if key=='actions':
+                    
+            #         goal_action_temp[sample_start_idx:sample_end_idx]=goal_action
+            #         goal_action=goal_action_temp
+                
+                   
+            
+            # result[key] = data
+            # if key=='obs/agentview_rgb':
+            #     # pre_image=self.replay_buffer['obs/agentview_rgb'][buffer_start_idx-4*self.n_action_steps:buffer_start_idx-4*self.n_action_steps+self.n_obs_steps]
+            #     # # if len(goal_list)==0:
+            #     # goal_image= self.replay_buffer['obs/agentview_rgb'][pre_goal_idx:pre_goal_idx+buffer_end_idx-buffer_start_idx]
+            #     # goal=self.replay_buffer['obs/agentview_rgb'][pre_goal_idx:pre_goal_idx+self.n_obs_steps]
+            #     # if Flage:
+            #     #     if random_bool:
+            #     #         goal_image=self.replay_buffer['img'][buffer_start_idx:buffer_end_idx]
+                   
+            #         # vae_image= self.replay_buffer['img'][buffer_start_idx:buffer_start_idx+self.sequence_length]
+            #     # else:
+            #     #     for i  in range(len(goal_list)):
+            #     #         if i==len(goal_list)-1:
+            #     #             if goal_list[i]==buffer_end_idx:
+            #     #                 goal_image=self.replay_buffer['img'][pre_goal_idx:pre_goal_idx+buffer_end_idx-buffer_start_idx]
+            #     #                 goal=self.replay_buffer['img'][pre_goal_idx:pre_goal_idx+self.n_obs_steps]
+            #     #             elif goal_list[i]==buffer_start_idx:
+            #     #                 goal_image=self.replay_buffer['img'][pre_goal_idx:pre_goal_idx+buffer_end_idx-buffer_start_idx]
+            #     #                 goal=self.replay_buffer['img'][pre_goal_idx:pre_goal_idx+self.n_obs_steps]
+            #     #             else:
+                                
+            #     #                 goal_image=self.replay_buffer['img'][pre_goal_idx:pre_goal_idx+buffer_end_idx-buffer_start_idx]
+                                
+            #     #                 # goal_image_temp=np.stack([goal_image[-1]]*(buffer_end_idx-buffer_start_idx-goal_image.shape[0]), axis=0)
+            #     #                 # goal_image=np.concatenate([goal_image,goal_image_temp], axis=0)
+                            
+            #     #                 goal=self.replay_buffer['img'][pre_goal_idx:pre_goal_idx+self.n_obs_steps]
+                
+            #     if (sample_start_idx > 0) or (sample_end_idx < self.sequence_length):
+            #     # if we need to pad, create a new array
+                
+                
+            #         data_goal_image = np.zeros(
+            #         shape=(self.sequence_length,) + goal_image.shape[1:],
+            #         dtype=input_arr.dtype)
+            
+            #         if sample_start_idx > 0:
+            #             data_goal_image[:sample_start_idx] = goal_image[0]
+                    
+            #         if sample_end_idx < self.sequence_length:
+            #             data_goal_image[sample_end_idx:] = goal_image[-1]
+                   
+            #         data_goal_image[sample_start_idx:sample_end_idx] = goal_image
+            #     else:
+            #         data_goal_image = goal_image
+            #     result['goal_image']=data_goal_image
+                        
+            # if key=='obs/ee_states':
+            #     # if len(goal_list)==0:
+            #     pre_state=self.replay_buffer['img'][buffer_start_idx-4*self.n_action_steps:buffer_start_idx-4*self.n_action_steps+self.n_obs_steps]
+            #     goal_state= self.replay_buffer['state'][pre_goal_idx:pre_goal_idx+buffer_end_idx-buffer_start_idx]
+            #     # if Flage:
+            #     #     if random_bool:
+            #     #         goal_state=self.replay_buffer['agent_state'][buffer_start_idx:buffer_end_idx]
+                    
+            #     #     # vae_image= self.replay_buffer['img'][buffer_start_idx:buffer_start_idx+self.sequence_length]
+            #     # else:
+            #     #     for i  in range(len(goal_list)):
+            #     #         if i==len(goal_list)-1:
+            #     #             if goal_list[i]==buffer_end_idx:
+            #     #                 goal_state=self.replay_buffer['img'][pre_goal_idx:pre_goal_idx+buffer_end_idx-buffer_start_idx]
+                               
+            #     #             elif goal_list[i]==buffer_start_idx:
+            #     #                 goal_state=self.replay_buffer['img'][pre_goal_idx:pre_goal_idx+buffer_end_idx-buffer_start_idx]
+                                
+            #     #             else:
+            #     #                 goal_state=self.replay_buffer['img'][pre_goal_idx:pre_goal_idx+buffer_end_idx-buffer_start_idx]
+                               
+            #                     # goal_state_temp=np.stack([goal_state[-1]]*(buffer_end_idx-buffer_start_idx-goal_state.shape[0]), axis=0)
+            #                     # goal_state=np.concatenate([goal_state,goal_state_temp], axis=0)
+            #     if (sample_start_idx > 0) or (sample_end_idx < self.sequence_length):
+            #     # if we need to pad, create a new array
+                
+                
+            #         data_goal_state = np.zeros(
+            #         shape=(self.sequence_length,) + goal_state.shape[1:],
+            #         dtype=input_arr.dtype)
+            
+            #         if sample_start_idx > 0:
+            #             data_goal_state[:sample_start_idx] = goal_state[0]
+                    
+            #         if sample_end_idx < self.sequence_length:
+            #             data_goal_state[sample_end_idx:] = goal_state[-1]
+                   
+            #         data_goal_state[sample_start_idx:sample_end_idx] = goal_state
+            #     else:
+            #         data_goal_state = goal_state
+                
+            #         # if goal_list[0] == buffer_start_idx:
+            #         #     vae_image= self.replay_buffer['img'][buffer_start_idx:buffer_start_idx+self.sequence_length]
+            #         # else:
+            #         #     vae_image= self.replay_buffer['img'][goal_list[0]:goal_list[0]+self.sequence_length]                        
+            if (sample_start_idx > 0) or (sample_end_idx < self.sequence_length):
+                data = np.zeros(
+                    shape=(self.sequence_length,) + input_arr.shape[1:],
+                    dtype=input_arr.dtype)
+                if sample_start_idx > 0:
+                    data[:sample_start_idx] = sample[0]
+                if sample_end_idx < self.sequence_length:
+                    data[sample_end_idx:] = sample[-1]
+                data[sample_start_idx:sample_end_idx] = sample
+            
+            result[key] = data
+
+        # result['goal'] = goal
+        # result['pre_state']=pre_state
+        # result['goal_state']=data_goal_state
+        # result['goal_action']=goal_action
+        # result['pre_image']=pre_image
+        # result['vae_image']=vae_image
+       
+        return result

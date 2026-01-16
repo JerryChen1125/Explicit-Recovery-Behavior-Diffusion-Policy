@@ -1,0 +1,1 @@
+sudo chmod 777 /dev/serial/by-id/usb-FTDI_USB__-__Serial_Converter_FTA2W8EN-if00-port0

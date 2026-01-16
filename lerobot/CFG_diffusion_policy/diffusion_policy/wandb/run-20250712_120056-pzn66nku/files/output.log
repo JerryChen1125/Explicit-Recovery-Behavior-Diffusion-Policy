@@ -1,0 +1,26 @@
+Traceback (most recent call last):
+  File "/home/sealab/miniconda3/envs/robodiff/lib/python3.9/site-packages/wandb/sdk/wandb_config.py", line 160, in __getattr__
+    return self.__getitem__(key)
+  File "/home/sealab/miniconda3/envs/robodiff/lib/python3.9/site-packages/wandb/sdk/wandb_config.py", line 127, in __getitem__
+    return self._items[key]
+KeyError: 'lr'
+The above exception was the direct cause of the following exception:
+Traceback (most recent call last):
+  File "/home/sealab/dp-yuan/diffusion_policy/wandb_check.py", line 22, in <module>
+    optimizer = optim.Adam(model.parameters(), lr=config.lr)
+  File "/home/sealab/miniconda3/envs/robodiff/lib/python3.9/site-packages/wandb/sdk/wandb_config.py", line 162, in __getattr__
+    raise AttributeError(
+AttributeError: '<class 'wandb.sdk.wandb_config.Config'>' object has no attribute 'lr'
+Traceback (most recent call last):
+  File "/home/sealab/miniconda3/envs/robodiff/lib/python3.9/site-packages/wandb/sdk/wandb_config.py", line 160, in __getattr__
+    return self.__getitem__(key)
+  File "/home/sealab/miniconda3/envs/robodiff/lib/python3.9/site-packages/wandb/sdk/wandb_config.py", line 127, in __getitem__
+    return self._items[key]
+KeyError: 'lr'
+The above exception was the direct cause of the following exception:
+Traceback (most recent call last):
+  File "/home/sealab/dp-yuan/diffusion_policy/wandb_check.py", line 22, in <module>
+    optimizer = optim.Adam(model.parameters(), lr=config.lr)
+  File "/home/sealab/miniconda3/envs/robodiff/lib/python3.9/site-packages/wandb/sdk/wandb_config.py", line 162, in __getattr__
+    raise AttributeError(
+AttributeError: '<class 'wandb.sdk.wandb_config.Config'>' object has no attribute 'lr'

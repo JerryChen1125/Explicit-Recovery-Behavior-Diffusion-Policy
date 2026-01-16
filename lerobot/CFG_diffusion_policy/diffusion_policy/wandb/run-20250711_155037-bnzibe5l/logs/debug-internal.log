@@ -1,0 +1,78 @@
+2025-07-11 15:50:37,421 INFO    StreamThr :256304 [internal.py:wandb_internal():90] W&B internal server running at pid: 256304, started at: 2025-07-11 15:50:37.421338
+2025-07-11 15:50:37,423 DEBUG   HandlerThread:256304 [handler.py:handle_request():141] handle_request: status
+2025-07-11 15:50:37,424 DEBUG   SenderThread:256304 [sender.py:send_request():316] send_request: status
+2025-07-11 15:50:37,425 DEBUG   SenderThread:256304 [sender.py:send():302] send: header
+2025-07-11 15:50:37,425 INFO    WriterThread:256304 [datastore.py:open_for_write():75] open: /home/sealab/dp-yuan/diffusion_policy/wandb/run-20250711_155037-bnzibe5l/run-bnzibe5l.wandb
+2025-07-11 15:50:37,426 DEBUG   SenderThread:256304 [sender.py:send():302] send: run
+2025-07-11 15:51:07,434 DEBUG   HandlerThread:256304 [handler.py:handle_request():141] handle_request: poll_exit
+2025-07-11 15:51:11,142 ERROR   SenderThread:256304 [retry.py:__call__():154] Retry attempt failed:
+Traceback (most recent call last):
+  File "/home/sealab/miniconda3/envs/robodiff/lib/python3.9/site-packages/urllib3/connection.py", line 174, in _new_conn
+    conn = connection.create_connection(
+  File "/home/sealab/miniconda3/envs/robodiff/lib/python3.9/site-packages/urllib3/util/connection.py", line 95, in create_connection
+    raise err
+  File "/home/sealab/miniconda3/envs/robodiff/lib/python3.9/site-packages/urllib3/util/connection.py", line 85, in create_connection
+    sock.connect(sa)
+socket.timeout: timed out
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/sealab/miniconda3/envs/robodiff/lib/python3.9/site-packages/urllib3/connectionpool.py", line 715, in urlopen
+    httplib_response = self._make_request(
+  File "/home/sealab/miniconda3/envs/robodiff/lib/python3.9/site-packages/urllib3/connectionpool.py", line 404, in _make_request
+    self._validate_conn(conn)
+  File "/home/sealab/miniconda3/envs/robodiff/lib/python3.9/site-packages/urllib3/connectionpool.py", line 1060, in _validate_conn
+    conn.connect()
+  File "/home/sealab/miniconda3/envs/robodiff/lib/python3.9/site-packages/urllib3/connection.py", line 363, in connect
+    self.sock = conn = self._new_conn()
+  File "/home/sealab/miniconda3/envs/robodiff/lib/python3.9/site-packages/urllib3/connection.py", line 179, in _new_conn
+    raise ConnectTimeoutError(
+urllib3.exceptions.ConnectTimeoutError: (<urllib3.connection.HTTPSConnection object at 0x79cd19524100>, 'Connection to api.wandb.ai timed out. (connect timeout=10)')
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/sealab/miniconda3/envs/robodiff/lib/python3.9/site-packages/requests/adapters.py", line 667, in send
+    resp = conn.urlopen(
+  File "/home/sealab/miniconda3/envs/robodiff/lib/python3.9/site-packages/urllib3/connectionpool.py", line 801, in urlopen
+    retries = retries.increment(
+  File "/home/sealab/miniconda3/envs/robodiff/lib/python3.9/site-packages/urllib3/util/retry.py", line 594, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='api.wandb.ai', port=443): Max retries exceeded with url: /graphql (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x79cd19524100>, 'Connection to api.wandb.ai timed out. (connect timeout=10)'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/sealab/miniconda3/envs/robodiff/lib/python3.9/site-packages/wandb/sdk/lib/retry.py", line 113, in __call__
+    result = self._call_fn(*args, **kwargs)
+  File "/home/sealab/miniconda3/envs/robodiff/lib/python3.9/site-packages/wandb/sdk/internal/internal_api.py", line 204, in execute
+    return self.client.execute(*args, **kwargs)  # type: ignore
+  File "/home/sealab/miniconda3/envs/robodiff/lib/python3.9/site-packages/wandb/vendor/gql-0.2.0/wandb_gql/client.py", line 52, in execute
+    result = self._get_result(document, *args, **kwargs)
+  File "/home/sealab/miniconda3/envs/robodiff/lib/python3.9/site-packages/wandb/vendor/gql-0.2.0/wandb_gql/client.py", line 60, in _get_result
+    return self.transport.execute(document, *args, **kwargs)
+  File "/home/sealab/miniconda3/envs/robodiff/lib/python3.9/site-packages/wandb/vendor/gql-0.2.0/wandb_gql/transport/requests.py", line 38, in execute
+    request = requests.post(self.url, **post_args)
+  File "/home/sealab/miniconda3/envs/robodiff/lib/python3.9/site-packages/requests/api.py", line 115, in post
+    return request("post", url, data=data, json=json, **kwargs)
+  File "/home/sealab/miniconda3/envs/robodiff/lib/python3.9/site-packages/requests/api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/home/sealab/miniconda3/envs/robodiff/lib/python3.9/site-packages/requests/sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/home/sealab/miniconda3/envs/robodiff/lib/python3.9/site-packages/requests/sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "/home/sealab/miniconda3/envs/robodiff/lib/python3.9/site-packages/requests/adapters.py", line 688, in send
+    raise ConnectTimeout(e, request=request)
+requests.exceptions.ConnectTimeout: HTTPSConnectionPool(host='api.wandb.ai', port=443): Max retries exceeded with url: /graphql (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x79cd19524100>, 'Connection to api.wandb.ai timed out. (connect timeout=10)'))
+2025-07-11 15:51:12,535 DEBUG   HandlerThread:256304 [handler.py:handle_request():141] handle_request: poll_exit
+2025-07-11 15:51:17,635 DEBUG   HandlerThread:256304 [handler.py:handle_request():141] handle_request: poll_exit
+2025-07-11 15:51:22,736 DEBUG   HandlerThread:256304 [handler.py:handle_request():141] handle_request: poll_exit
+2025-07-11 15:51:27,836 DEBUG   HandlerThread:256304 [handler.py:handle_request():141] handle_request: poll_exit
+2025-07-11 15:51:32,937 DEBUG   HandlerThread:256304 [handler.py:handle_request():141] handle_request: poll_exit
+2025-07-11 15:51:38,037 DEBUG   HandlerThread:256304 [handler.py:handle_request():141] handle_request: poll_exit
+2025-07-11 15:51:42,490 WARNING StreamThr :256304 [internal.py:is_dead():387] Internal process exiting, parent pid 256270 disappeared
+2025-07-11 15:51:42,490 ERROR   StreamThr :256304 [internal.py:wandb_internal():149] Internal process shutdown.
+2025-07-11 15:51:43,043 INFO    HandlerThread:256304 [handler.py:finish():810] shutting down handler
+2025-07-11 15:51:43,439 INFO    WriterThread:256304 [datastore.py:close():279] close: /home/sealab/dp-yuan/diffusion_policy/wandb/run-20250711_155037-bnzibe5l/run-bnzibe5l.wandb
+2025-07-11 15:51:43,495 INFO    MainThread:256304 [internal.py:handle_exit():80] Internal process exited
